@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Tabla semanal de horarios con javascript</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<table>
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+<body>
+
+    <script type="text/javascript">
+        function Table() {
+
+            this.thead = document.getElementById("thead")
+            this.tbody = document.getElementById("tbody")
+            this.dias = ["Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+            this.horas = ["8:00", "9:00", "10:00", "11:00", "12:00"]
+            this.clases = [{
+                "hora": "8:00",
+                "dia": 1,
+                "materia": "Música",
+                "bg": "aliceblue"
+            }, {
+                "hora": "10:00",
+                "dia": 1,
+                "materia": "Filosofía",
+                "bg": "antiquewhite"
+            }, {
+                "hora": "10:00",
+                "dia": 2,
+                "materia": "Literatura",
+                "bg": "darkgray"
+            }, {
+                "hora": "8:00",
+                "dia": 3,
+                "materia": "Dibujo",
+                "bg": "cyan"
+            }, {
+                "hora": "9:00",
+                "dia": 3,
+                "materia": "Música",
+                "bg": "aliceblue"
+
+            }, {
+                "hora": "11:00",
+                "dia": 3,
+                "materia": "Biología",
+                "bg": "darkturquoise"
+            }, {
+                "hora": "8:00",
+                "dia": 4,
+                "materia": "Música",
+                "bg": "aliceblue"
+            }, {
+                "hora": "10:00",
+                "dia": 4,
+                "materia": "Sociología",
+                "bg": "darksalmon"
+            }, {
+                "hora": "8:00",
+                "dia": 5,
+                "materia": "Filosofía",
+                "bg": "antiquewhite"
+            }, {
+                "hora": "9:00",
+                "dia": 5,
+                "materia": "Literatura",
+                "bg": "darkgray"
+            }, {
+                "hora": "12:00",
+                "dia": 5,
+                "materia": "Historia",
+                "bg": "cornflowerblue"
+            }]
+
+            // header
+            this.head = function() {
+                // texto de "Hora" y los días
+                for (d of this.dias) {
+                    const th = document.createElement("th")
+
+                    // Sí no es el texto "Hora" le ponemos la clase "days" de lo contrario el fondo red
+                    if (d !== "Hora") th.className = "days"
+                    else th.style.backgroundColor = "red"
+                    th.appendChild(document.createTextNode(d))
+                    this.thead.appendChild(th)
+                }
+            }
+
+            // body
+            this.body = function() {
+                let hora
+                    // en el body tenemos que poner las horas con sus respectivas materias
+                for (let f = 0; f < 5; f++) {
+                    // fila
+                    const tr = document.createElement("tr")
+
+                    // celdas, for por la cantidad de días de la semana
+                    for (let c = 0; c < 6; c++) {
+                        const td = document.createElement("td")
+
+                        if (c == 0) {
+                            // celdas de las horas tomamos la primera y después la eliminamos así tomamos la siguiente
+                            td.appendChild(document.createTextNode(this.horas[c]))
+                            td.style.fontWeight = "bold"
+                            hora = this.horas[c]
+                            this.horas.shift()
+
+                        } else {
+                            // celdas de las materias
+                            td.className = "shadow"
+                            this.clases.forEach(function(element) {
+                                if (element.hora === hora && element.dia === c) {
+                                    td.style.backgroundColor = element.bg
+                                    td.appendChild(document.createTextNode(element.materia))
+                                }
+                            })
+
+                        }
+                        tr.appendChild(td)
+                    }
+                    this.tbody.appendChild(tr)
+
+                }
+
+            }
+
+
+
+
+        }
+
+        let table = new Table()
+        table.head();
+        table.body();
+    </script>
+</body>
+
+</html>
