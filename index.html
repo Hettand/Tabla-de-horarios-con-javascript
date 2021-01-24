@@ -6,7 +6,9 @@
 </head>
 
 <table>
-    <thead id="thead"></thead>
+    <thead>
+        <tr id="thead"></tr>
+    </thead>
     <tbody id="tbody"></tbody>
 </table>
 
@@ -93,23 +95,21 @@
 
             // body
             this.body = function() {
-                let hora
+                let hora, horasCount
+                horasCount = this.horas.length
                     // en el body tenemos que poner las horas con sus respectivas materias
-                for (let f = 0; f < 5; f++) {
+                for (let f = 0; f < horasCount; f++) {
                     // fila
                     const tr = document.createElement("tr")
-
-                    // celdas, for por la cantidad de días de la semana
+                        // celdas, for por la cantidad de días de la semana
                     for (let c = 0; c < 6; c++) {
                         const td = document.createElement("td")
-
                         if (c == 0) {
                             // celdas de las horas tomamos la primera y después la eliminamos así tomamos la siguiente
                             td.appendChild(document.createTextNode(this.horas[c]))
                             td.style.fontWeight = "bold"
                             hora = this.horas[c]
                             this.horas.shift()
-
                         } else {
                             // celdas de las materias
                             td.className = "shadow"
@@ -119,14 +119,11 @@
                                     td.appendChild(document.createTextNode(element.materia))
                                 }
                             })
-
                         }
                         tr.appendChild(td)
                     }
                     this.tbody.appendChild(tr)
-
                 }
-
             }
 
 
